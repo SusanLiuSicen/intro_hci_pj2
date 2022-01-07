@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 800px;
+    }
+
+    #piediv {
+        width: 100%;
+        height: 800px;
+    }
+
+    #barchartdiv {
+        width: 100%;
+        height: 800px;
+    }
+
+    #urbandiv {
+        width: 100%;
+        height: 800px;
+    }
+
+    #marylanddiv {
+        width: 100%;
+        height: 400px;
+    }
+
+    #marylandracediv {
+        width: 100%;
+        height: 400px;
+    }
+
+    .btn-group button {
+        background-color: #05a3cade;
+        /* Green background */
+        border: 1px solid rgb(19, 0, 128);
+        /* Green border */
+        color: white;
+        /* White text */
+        padding: 10px 24px;
+        /* Some padding */
+        cursor: pointer;
+        /* Pointer/hand icon */
+        float: left;
+        /* Float the buttons side by side */
+        height: 50px
+    }
+
+    .btn-group button:focus {
+        background-color: #0e4496;
+    }
+
+    #breakdowndiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Intro HCI - Project 2</title>
+    <link rel="icon" type="image/x-icon" href="assets/background.png" />
+    <!--Icon from https://devdiscourse.blob.core.windows.net/devnews/21_08_2019_16_18_42_6819685.jpg        -->
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <!--    <script src="https://d3js.org/d3.v7.min.js"></script>-->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+    <script src="//cdn.amcharts.com/lib/4/geodata/region/usa/mdLow.js"></script>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html">Intro HCI - Project 2</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                    <!--                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>-->
+                    <!--                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Project 2</a></li>-->
+                    <!--                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('assets/food-security.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>Food Security in America</h1>
+                        <h2 class="subheading">Project 2</h2>
+                        <span class="meta">
+                            Posted by
+                            <a href="#!">Nathan Drenkow, Susan Liu, Allison Pearson</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <h2>
+                Food Security
+            </h2>
+            <p>
+                Access to healthy foods is essential for personal well-being regardless of race, age, or other factors.
+                For students and faculty at JHU, this access is often taken for granted given that on-campus dining,
+                local stores and restaurants, and many other healthy options exist within just a few city blocks.
+                However, this access is not a luxury for much of the U.S. and even within Baltimore, access to healthy
+                food is limited by income inequality, access to vehicles or other transportation, and an uneven
+                distribution
+                of grocery options within a reasonable distance.
+                Surprisingly, <b>food deserts</b> are pervasive and affect both urban and rural areas across the U.S.
+            </p>
+            <h3> Food Deserts </h3>
+            <p>
+                The USDA defines <b>food deserts</b> as regions with <em>both</em> low access to healthy food and low
+                average income. The USDA provides systematic definitions of both low income and low access.  The
+                definitions are based on US Census Tract data which captures sub-county population statistics.
+                In short, low income is a function of the poverty rate and/or the median income within a tract relative
+                to the state or local region. Similarly, low access is determined by significant low income
+                populations within a low income census tract and without access to healthy food options.
+            </p>
+            <p>
+                We aim to examine food desert prevalence in the U.S. and to assess whether this problem affects
+                various racial and demographic groups equally.  In particular, we analyze food desert data for
+                minority and vulnerable populations across varying regional areas.
+            </p>
+            <h2> Data </h2>
+            <p>
+                The USDA's Food Access Research Atlas [1] contains census-based data which provides tract-level
+                information about food access across the country.  The USDA releases this data every 4-5 years
+                (dating back to 2006) which provides useful longitudinal data capturing changes over the past few
+                decades. For closest comparison across years, we focus our attention primarily on an eight-year period
+                captured by data released in 2015 and 2019.
+            </p>
+            <h2> Distributions of Populations Impacted by Food Deserts </h2>
+            <p>
+                To give an overview of the populations affected by food deserts, we breakdown people affected by
+                food deserts into races, age groups, vehicle availability status, and low-income status.
+                For this analysis, we are using the tract flag that defines low access as <em>more
+                than 1 mile (urban areas) or more than 10 miles (rural areas)</em> from the nearest
+                supermarket, supercenter, or large grocery store.
+                Thus, the proportions can look very different if we choose a different definition of low-access. We only
+                display data from 2015 and 2019 because these two datasets contain relevant details about racial
+                groups. If we compare the distributions between 2015 and 2019, we can see that the makeup
+                doesn't change too much over the eight year span.
+            </p>
+            <p>
+                If we take a look at the various proportions, we can see that the White sub-population accounts for
+                just over half of the
+                population affected while Black, Hispanic, and Native Hawaiian and Other Pacific Islander are the
+                most affected  minorities. Around a quarter of people affected are kids (0-17 years old) while only
+                around 12% are seniors (age 65+). This statistic would make sense since between the two vulnerable age
+                groups, children are more dependent on care-takers and unlikely to have stable incomes.
+            </p>
+            <p>
+                At first glance, the vehicle and low income distributions may seem counterintuitive since food deserts
+                are defined as both low income and low access to healthy food. However, in the statistics, a tract is
+                marked as a
+                food desert if it is a <em>low income</em> tract with at least <em>500 people, or 33 percent</em> of the
+                population, living more than 1 mile (urban areas) or more than 10 miles (rural areas) from the nearest
+                supermarket, supercenter, or large grocery store.
+                Similarly, a low income tract is defined as a tract with either <em>a poverty rate of 20 percent or
+                more</em>, or a median family income less than <em>80 percent of the State-wide median family
+                income</em> ; or a tract in a metropolitan area with a median family income less than <em>80 percent
+                of the surrounding metropolitan area median family income</em>. This suggests a more complicated
+                process for determining food desert status.
+                Thus, a household can be a high income family living in a neighborhood with high poverty rate, or have
+                access to healthy food but live in a neighborhood where more than one third of the people have
+                limited access. This demonstrates a limitation of this dataset in that it is counting food desert status
+                by tract instead of by headcounts or households and thus does not really count for the variability of
+                living conditions within those tracts.
+            </p>
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <select id="selectyear" onchange="selectDataset(this)">
+                    <option value="2019">2019</option>
+                    <option value="2015">2015</option>
+                </select>
+                <div class="piechart" id="piediv"></div>
+                <h6>Figure 1: Distributions of people affected by food deserts, in race, age, vehicle
+                    availability, and income.
+                </h6>
+                <h6>
+                    Key: {White}, {Black}, {Asian}, {AIAN: American Indian and Alaska Native}, {NHOPI - Native Hawaiian
+                    and Other Pacific Islander}, {OmultiR - Other or Multiple Race}
+                </h6>
+            </div>
+            <br>
+            <h2> Racial Impacts of Food Deserts </h2>
+            <p>
+                One limitation of looking at raw numbers of people affected by food deserts is
+                that the proportions can be easily misleading. By looking at the figure above, one may
+                conclude that the White population is most affected by food deserts. In terms of total number of
+                individuals, this is true.  However, if we take into account that the White population makes up
+                around 76% of the entire population in the US, we can see that only a small portion of the
+                White population is actually affected by food deserts yet minority populations are
+                disproportionately impacted. To better understand the problem, we dive deeper into the racial impacts
+                of food deserts.
+            </p>
+            <p>
+                Below is a look at the impacts of food deserts broken down by state and race in 2019.
+                The figure is based on the food desert statistics within that state and shown for each racial group.
+                Again, if looking at aggregate numbers, the statistics can be misleading showing that the White
+                population is the most affected race while also suggesting that other subpopulations are relatively
+                unaffected.
+                However, if we examine how much of each subpopulation is affected relative to the total number
+                of individuals in that subpopulation (dark blue bars), we see a significantly different story.
+                This suggests that in fact <em>different racial groups are impacted unequally across states and of
+                    greater concern is that minority groups experience these effects most often.</em>
+            </p>
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div id="chartdiv"></div>
+                <h6>Figure 2:
+                    (Map) Fraction of total affected by food deserts according to race.
+                    (Middle) Share of total population refers to how much a given race contributes to the state's total
+                    population (independent of food desert status).
+                    Share of subpopulation refers to how much of a given race's population is affected by food deserts.
+                    This figure highlights that some races may account for only a fraction of their state's population,
+                    but those same races may be disproportionately impacted by food deserts.
+                    (Bottom) Statistics are shown for 2015 and 2019, so the bottom plot shows relative differences
+                    (negative is better and indicates food desert impacts were smaller for 2019 relative to 2015 for the
+                    associated race).
+
+                </h6>
+                <h6>
+                    Key: {White}, {Black}, {Asian}, {AIAN: American Indian and Alaska Native}, {NHOPI - Native Hawaiian
+                    and Other Pacific Islander}, {OmultiR - Other or Multiple Race}
+                </h6>
+            </div>
+            <p>
+                By examining individual states, we can see that some racial groups are disproportionately affected by
+                food deserts.  With the exception of the Northeast and California, much of the U.S. shows significant
+                proportions of the population impacted by food deserts. The South (such as Georgia, North/South
+                Carolina, and Tennessee) shows that black populations are impacted more severely than other
+                subpopulations.
+                Within the Mid-West and Southwest, we see higher food desert effects for American Indian groups
+                despite the fact that their total populations are relatively small in those states.
+                Across much of the U.S., Hispanic populations experience significant food desert effects often
+                comparable to other highly-impacted minority racial groups in those state.
+            </p>
+            <br>
+
+            <h2> Food Deserts in Rural vs. Urban Populations </h2>
+            <p>
+                While food deserts are present in nearly every kind of community, the USDA defines them differently
+                depending on whether the area (designated by census tract) is defined as rural or urban. In an urban community, a
+                food desert is any low-income community where the nearest supermarket is at least one mile away. In a rural
+                community, a food desert is any low-income community where the nearest supermarket is at least ten miles away. The reason
+                for this distinction is because "low-access" can have different meanings depending on an area's resources. For
+                example, driving 12 miles to the grocery store in a rural community might have an equal burden to taking a bus 3
+                miles to the grocery store in an urban community.  While this distinction helps separate
+                relevant differences between rural and urban populations, it still demonstrates that making these
+                distinctions is challenging.  The USDA uses multiple rural/urban distance thresholds to get a more
+                complete picture yet these may still not be optimal as U.S. population distributions change over time.
+            </p>
+            <p>
+                Below, we visualize food access data in four different vulnerable populations, and encourage the user to
+                examine both the urban and rural community data. The first population we explore is children living in food
+                deserts. One can see that in the rural population, it is much more common for children to live more than 10
+                miles from a supermarket than in urban areas. We also looked at the senior population for each community
+                and distance. This was an important area to focus on because age, once again, changes the idea of access. It is a much
+                greater imposition for an 80-year-old to walk two miles to the grocery store than it is for an able-bodied 25-year-old. We
+                observe that while there are not as many seniors living in food deserts as there are children, there is still a significant
+                amount, and the burden they face in accessing food is arguably much higher.
+            </p>
+            <p>
+                Our third population is low-income individuals. This is a general definition of populations living in
+                food deserts, since low-income is a prerequisite for a tract to receive the food desert designation.
+                While there are many more people in urban areas living in food deserts than there are in rural areas,
+                as one can see from the chart, it is important to consider that urban areas are more highly populated.
+                Still, considering the differences in a food desert's definition based on community,
+                this may indicate that urban areas are disproportionately affected by food insecurity.
+            </p>
+            <p>
+                The final population displayed is housing units receiving SNAP. SNAP stands for "Supplemental Nutrition
+                Assistance Program." It is a federally funded program (formerly known as Food Stamps) that provides
+                additional nutritional benefits for families and individuals to supplement their food budgets, so
+                that they can access more healthy food choices. Our chart examines the 2019 set of houses receiving
+                SNAP benefits, and their distances from the nearest supermarket.
+            </p>
+            <div style="float:center; clear: both">
+                <select id="test" name="form_select" onchange="showDiv(this)">
+                    <option value="0">Urban Population</option>
+                    <option value="1">Rural Population</option>
+                </select>
+                <div>
+                    <div id="barchartdiv" style="display:none"></div>
+                    <div id="urbandiv"></div>
+                    <h6>Figure 3:
+                        (Bar Charts) Number of people (in millions) living further than a specified distance of
+                        specified from the nearest supermarket. We look at distances of >1/2 mile (urban), >1 mile
+                        (urban), >10 miles (rural), and >20 miles (urban). Note that the
+                        chart describing "SNAP" is in housing units, not population. These figures highlight the
+                        disproportionately high number of
+                        food deserts in urban populations, but also displays the high amount of food insecurity in
+                        rural populations, which is not as well-known or discussed. Additionally, these charts show
+                        the effect of food insecurity on older and younger populations, which must be considered
+                        separately from the wider population given that their access needs are different.
+                    </h6>
+                </div>
+                <script type="text/javascript">
+                    function showDiv(element) {
+                        console.log(element.value);
+                        if (element.value == 1) {
+                            document.getElementById('urbandiv').style.display = "none";
+                            document.getElementById('barchartdiv').style.display = "block";
+                        } else if (element.value == 0) {
+                            document.getElementById('barchartdiv').style.display = "none";
+                            document.getElementById('urbandiv').style.display = "block";
+                        }
+                    }
+                </script>
+            </div>
+            <br>
+            <h2>
+                Food Desert Contributing Factors
+            </h2>
+            <p>
+                We next attempt to determine major causes or correlating factors for food desert prevalence according to
+                race. Since many statistics such as median income, poverty rate, etc. are not broken down by race in the USDA
+                FARA, we attempt to approximate these statistics at the race-level as follows.  For each census
+                tract, we identify the race that contributes the highest number of individuals to the tract's
+                population.  Then, by aggregating over all tracts we can get an estimate for which races "dominate"
+                which tracts. Filtering by tracts marked as being both low income and low access, we can see for each race the
+                fraction of food desert tracts where that race is predominant.
+            </p>
+            <p>
+                Next, for each race, we then look at the average poverty rate, median income, SNAP participation, and
+                lack of vehicle access (while also living greater than a half mile from a supermarket) taken across all
+                tracts where that race is dominant and the tract is also in a food desert. These aggregate statistics
+                help to highlight which factors might
+                be contributing toward the food desert designation.  For instance, for food desert tracts where the
+                dominant race is Black, lack of vehicle access is prevalent for 74.8% of the population while the
+                average median income across those tracts is also less than $40k. In contrast, predominantly White
+                tracts show a much lower poverty rate and overall higher median income, suggesting that vehicle
+                access and distance from the nearest supermarket are the more dominant factors in those tracts.
+            </p>
+            <div id="breakdowndiv"></div>
+            <h6>Figure 4: (Left) For the selected race at right, mean income- and SNAP-related statistics for food
+                desert tracts.
+                (Right) Fraction of census tracts marked as a food desert (1 mi urban, 10 mi rural) where a given race
+                accounted for the most individuals in that tract.
+            </h6>
+            <h6>
+                Key: {White}, {Black}, {Asian}, {AIAN: American Indian and Alaska Native}, {NHOPI - Native Hawaiian
+                and Other Pacific Islander}, {OmultiR - Other or Multiple Race}
+            </h6>
+            <p>
+                In doing this analysis, we found that while certain races (e.g., White) may have a large number of
+                tracts containing food deserts, those tracts are only a small number of the total count where that same race is
+                dominant (e.g., only 9% of the predominantly White tracts are marked as food deserts).
+                This observation is consistent with our other findings (see Figure 1).
+                The food desert statistics aggregated in the figure above tell a more nuanced story and help to
+                highlight that each race may face significantly different challenges and underlying causes in their
+                food desert situations.
+            </p>
+            <p>
+                Of course, this analysis comes with a major caveat since we've assigned race labels to tracts purely on
+                the basis of which race has the largest population in that tract.
+                This could be a fairly noisy measurement in general which might corrupt the statistics shown in the
+                above figures. Furthermore, ascribing the income, poverty, and vehicle access statistics in this way
+                could also be misleading since we've assumed that race is a causal factor for these variables.
+                In fact, there may be no strong causal link in reality in which case, the above figures may not provide
+                us many insights overall. However, since tracts are reasonably small in terms of total population, we
+                believe that identifying a tract by the race contributing the most individuals to its population is
+                still a reasonable assumption for enabling us to study some of the deeper factors related to food desert
+                prevalence.
+            </p>
+            <br>
+            <div>
+                <h2>Food Deserts in Maryland</h2>
+                <p> As students at Johns Hopkins, we decided it would be useful and important to examine food security data 
+                    specific to the state of Maryland. As with the US map visualization above, hover over individual counties 
+                    to display what percentage of the population of that county lives in a tract labeled as a food desert.
+                    Additionally, click on each county to see the racial demographics of that county displayed in the bar chart
+                    below. When observing these visualizations together, one can see that, frequently, populations of color exist 
+                    in a higher percentage in
+                    the county's food deserts than they do in the overall county demographics, emphasizing that the effect of food
+                    insecurity is not felt equally by all races or groups. This suggests, as stated before, that the issue of food 
+                    deserts is deeply connected to 
+                    systematic racism, and disproportionately affects BIPOC populations more than white populations.
+                </p>
+                <div id="marylanddiv"></div>
+                <div id="marylandracediv"></div>
+                <h6>Figure 5: (Top) Statistics by county of what percentage of the population lives in a food desert.
+                    (Bottom) Bar chart of selected county's food deserts, categorized by race - left columns are food desert breakdown by race,
+                    right columns are overall county population breakdown by race. When the light blue bar is greater
+                    than the dark blue bar, it indicates that the selected race disproportionately contributes to food desert population in that county.
+                    Statistics for both charts from 2019.
+                </h6>
+                <h6>
+                    Key: {White}, {Black}, {Asian}, {AIAN: American Indian and Alaska Native}, {NHOPI - Native Hawaiian
+                    and Other Pacific Islander},
+                    {OmultiR - Other or Multiple Race}
+                </h6>
+            </div>
+            <h2>
+                Conclusions
+            </h2>
+            <p>
+                We find that food deserts are a significant issue facing much of the United States.  On the surface,
+                many of the statistics do not suggest any disparities for racial minorities, but our deeper analysis
+                uncovers that food deserts are disproportionately impactful as a function of race, demographic, and
+                geography.  We find that the factors affecting each subpopulation are often different and vary from low income to
+                challenges with vehicle access.  Overall, the unequal effects of food desert prevalence on minority
+                and vulnerable groups are measurable. We believe that access to healthy food should be universal and
+                hope that this project helps to raise awareness for this issue.
+            </p>
+            <h2>
+                References:
+            </h2>
+            <p>
+            <ol>
+                <li>https://www.ers.usda.gov/data-products/food-access-research-atlas</li>
+            </ol>
+            </p>
+        </div>
+    </article>
+
+    <!-- Footer-->
+    <footer class="border-top">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#!">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="small text-center text-muted fst-italic">Copyright &copy; Team 16 2021</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/pie.js"></script>
+    <script src="js/breakdown.js"></script>
+    <script src="js/bar_chart.js"></script>
+    <script src="js/urban_chart.js"></script>
+    <script src="js/maryland.js"></script>
+</body>
+
+</html>
